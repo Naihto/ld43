@@ -118,7 +118,7 @@ public class DialogueManager : MonoBehaviour {
     public void ResetGame()
     {
         //print("ResetGame");
-        textbox.text = "Typeless";
+        textbox.text = "Typeless\nUse keyboard keys to type in your dialogue";
 
         optionList[0].SetWord("Start", -1);
         optionList[1].SetWord("Begin", -1);
