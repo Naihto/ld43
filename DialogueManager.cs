@@ -117,7 +117,7 @@ public class DialogueManager : MonoBehaviour {
 
     public void ResetGame()
     {
-        print("ResetGame");
+        //print("ResetGame");
         textbox.text = "Typeless";
 
         optionList[0].SetWord("Start", -1);
@@ -135,6 +135,8 @@ public class DialogueManager : MonoBehaviour {
         happiness = Mathf.Abs(initHappiness);
         UpdateHappiness(0);
 
+        alertTextbox.text = "";
+
         popupPanel.SetActive(false);
         sacrificePopupPanel.SetActive(false);
         SetPanelActive(sacrificedPanel, false);
@@ -149,7 +151,7 @@ public class DialogueManager : MonoBehaviour {
 
     public void OpenDialogueFile(int num, string name)
     {
-        print("OpenDialogueFile");
+        //print("OpenDialogueFile");
         isGameOver = false;
         isInGame = true;
         textFile = Resources.Load<TextAsset>("Dialogue" + Path.DirectorySeparatorChar + ((name == "") ? "dialogue" : name) + num.ToString());
@@ -158,7 +160,7 @@ public class DialogueManager : MonoBehaviour {
 
     void SetDialogue()
     {
-        print("SetDialogue");
+        //print("SetDialogue");
         //dialogueQueue.Clear();
         
 
@@ -178,7 +180,7 @@ public class DialogueManager : MonoBehaviour {
         InitGameUI();
 
         isSentenceCompleted = true;
-        print("SetDialogue");
+        //print("SetDialogue");
         DisplayNextDialogue();
     }
 
@@ -194,7 +196,7 @@ public class DialogueManager : MonoBehaviour {
 
     void DisplayNextDialogue()
     {
-        print("DisplayNextDialogue");
+        //print("DisplayNextDialogue");
 
         if (isGameOver)
         {
@@ -214,15 +216,15 @@ public class DialogueManager : MonoBehaviour {
         currDialogue = data[dialogueCtr];
         dialogueCtr++;
 
-        print("Dialogue Ctr: " + dialogueCtr);
+        //print("Dialogue Ctr: " + dialogueCtr);
 
         string[] str = currDialogue.Split('|');
 
-        print("Curr dialogue: " + currDialogue);
+        //print("Curr dialogue: " + currDialogue);
 
         if (string.IsNullOrEmpty(currDialogue))
         {
-            print("String IsNullOrEmpty");
+            //print("String IsNullOrEmpty");
             isSentenceCompleted = true;
             DisplayNextDialogue();
             return;
@@ -231,20 +233,20 @@ public class DialogueManager : MonoBehaviour {
 
         if (string.IsNullOrWhiteSpace(currDialogue))
         {
-            print("String IsNullOrWhiteSpace");
+            //print("String IsNullOrWhiteSpace");
             isSentenceCompleted = true;
             DisplayNextDialogue();
             return;
         }
 
-        print("Split String str[0]: " + str[0]);
+        //print("Split String str[0]: " + str[0]);
 
         int number;
         if (int.TryParse(str[0], out number))
         {
             if (int.Parse(str[0]) == optionVal)
             {
-                print("Dialogue option: " + optionVal);
+                //print("Dialogue option: " + optionVal);
                 optionVal = int.Parse(str[1]);
 
                 if(str[2].ToLower() == "image")
@@ -260,7 +262,7 @@ public class DialogueManager : MonoBehaviour {
             }
             else
             {
-                print("OptionVal: " + optionVal + " != " + str[0]);
+                //print("OptionVal: " + optionVal + " != " + str[0]);
                 isSentenceCompleted = true;
                 DisplayNextDialogue();
                 return;
@@ -270,7 +272,7 @@ public class DialogueManager : MonoBehaviour {
         {
             if (optionVal != 0)
             {
-                print("OptionVal = " + optionVal + " && str = " + str[0]);
+                //print("OptionVal = " + optionVal + " && str = " + str[0]);
                 isSentenceCompleted = true;
                 DisplayNextDialogue();
                 return;
@@ -285,14 +287,14 @@ public class DialogueManager : MonoBehaviour {
                     break;
 
                 case "dialogue":
-                    print("Dialogue");
+                    //print("Dialogue");
 
                     currDialogue = str[1];
                     StartCoroutine(DelayedDisplay(currDialogue));
                     break;
 
                 case "option":
-                    print("Option");
+                    //print("Option");
                     //int ctr = 0;
                     for (int i = 0; i < optionList.Count; i++)
                     {
@@ -327,14 +329,14 @@ public class DialogueManager : MonoBehaviour {
 
         if (isNextSentence)
         {
-            print("isNextSentence");
+            //print("isNextSentence");
             DisplayNextDialogue();
         }
     }
 
     void ImageKey(string str)
     {
-        print("ImageKey: " + str);
+        //print("ImageKey: " + str);
         charaImage.sprite = Resources.Load<Sprite>("Dialogue_Images/" + str);
         isSentenceCompleted = true;
         DisplayNextDialogue();
@@ -342,7 +344,7 @@ public class DialogueManager : MonoBehaviour {
 
     void AnimKey(string str)
     {
-        print("AnimKey: " + str);
+        //print("AnimKey: " + str);
         charaImage.GetComponent<Animator>().Play(str);
         isSentenceCompleted = true;
         DisplayNextDialogue();
@@ -351,10 +353,10 @@ public class DialogueManager : MonoBehaviour {
     IEnumerator DelayedDisplay(string text)
     {
         isNextSentence = false;
-        //print("Frame before DelayedDisplay");
+        ////print("Frame before DelayedDisplay");
         //yield return new WaitForEndOfFrame();
 
-        print("DelayedDisplay: " + text);
+        //print("DelayedDisplay: " + text);
 
         if (!string.IsNullOrEmpty(text))
         {
@@ -382,14 +384,14 @@ public class DialogueManager : MonoBehaviour {
         isSentenceCompleted = true;
         if (string.IsNullOrEmpty(text))
         {
-            print("DelayedDisplay Text is empty: " + text);
+            //print("DelayedDisplay Text is empty: " + text);
             DisplayNextDialogue();
         }
     }
 
     public void EndSentence()
     {
-        print("EndSentence");
+        //print("EndSentence");
         StopAllCoroutines();
         textbox.maxVisibleCharacters = textbox.text.Length;
         isSentenceCompleted = true;
@@ -397,7 +399,7 @@ public class DialogueManager : MonoBehaviour {
 
     void TypedLetter(char letter)
     {
-        //print("TypedLetter: " + letter);
+        ////print("TypedLetter: " + letter);
         foreach (var opt in optionList)
         {
             if (opt.GetChar() == letter)
@@ -409,7 +411,7 @@ public class DialogueManager : MonoBehaviour {
 
     public void SelectOption(int val)
     {
-        print("SelectOption: " + val);
+        //print("SelectOption: " + val);
 
         sacrificePopupImages.SetActive(false);
         isOptionSelecting = false;
@@ -428,7 +430,7 @@ public class DialogueManager : MonoBehaviour {
 
     void SacrificeCharPrompt()
     {
-        print("SacrificeCharPrompt");
+        //print("SacrificeCharPrompt");
 
         heldChar = '\0';
         isSacrificing = false;
@@ -469,7 +471,7 @@ public class DialogueManager : MonoBehaviour {
 
     IEnumerator SacrificeInputGrace()
     {
-        print("SacrificeInputGrace");
+        //print("SacrificeInputGrace");
         sacrificePopupTextbox.text = "";
         sacrificePopupTextbox2.text = "";
         yield return new WaitForSeconds(0.5f);
@@ -479,7 +481,7 @@ public class DialogueManager : MonoBehaviour {
 
     IEnumerator OfferingInputGrace()
     {
-        print("OfferingInputGrace");
+        //print("OfferingInputGrace");
         offeringPopupTextbox.text = "What letter do you wish to receive at the cost of " + offeringCost + " of their happiness?";
         offeringPopupTextbox2.text = "";
         offeringPopupTextbox2.text = "";
@@ -490,7 +492,7 @@ public class DialogueManager : MonoBehaviour {
 
     void SacrificeCharCheck(char letter)
     {
-        print("SacrificeCharCheck");
+        //print("SacrificeCharCheck");
         offeringPopupTextbox2.text = "";
         isSacrificing = false;
         isSacrificingCheck = true;
@@ -502,7 +504,7 @@ public class DialogueManager : MonoBehaviour {
 
     void OfferingCharCheck(char letter)
     {
-        print("OfferingCharCheck");
+        //print("OfferingCharCheck");
         isOffering = false;
         isOfferingCheck = true;
         heldChar = letter;
@@ -513,7 +515,7 @@ public class DialogueManager : MonoBehaviour {
 
     void SacrificeChar()
     {
-        print("SacrificeChar");
+        //print("SacrificeChar");
         if (heldChar == '\0')
         {
             SacrificeCharPrompt();
@@ -553,7 +555,7 @@ public class DialogueManager : MonoBehaviour {
 
     void ResetOptions()
     {
-        print("ResetOptions");
+        //print("ResetOptions");
         foreach (var opt in optionList)
         {
             opt.SetWord("", -1);
@@ -714,7 +716,7 @@ public class DialogueManager : MonoBehaviour {
                 {
                     if (isSacrificingCheck)
                     {
-                        print("TEST");
+                        //print("TEST");
                         SacrificeCharPrompt();
                     }
 
@@ -728,7 +730,7 @@ public class DialogueManager : MonoBehaviour {
         {
             if (Input.GetKeyDown(KeyCode.Space) && !isOptionSelecting && !isSacrificing && !isSacrificingCheck)
             {
-                print("Space");
+                //print("Space");
 
                 audioSource.pitch = 1;
                 audioSource.PlayOneShot(tapClip, 1);
@@ -782,7 +784,7 @@ public class DialogueManager : MonoBehaviour {
             popupTextbox.text = "Are you sure you want to reset?";
             //popupTextbox2.text = "";
             popupImages.SetActive(false);
-            print("ResetGameInputGrace");
+            //print("ResetGameInputGrace");
             yield return new WaitForSeconds(0.5f);
             //popupTextbox2.text = "Enter (Y) / Backspace (N)\nInput a key now!";
             popupImages.SetActive(true);
