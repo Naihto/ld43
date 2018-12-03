@@ -300,13 +300,13 @@ public class DialogueManager : MonoBehaviour {
                     {
                         if (i + 1 < str.Length)
                         {
-                            if (!optionList[i].gameObject.activeSelf)
-                                optionList[i].gameObject.SetActive(true);
+                            if (!optionList[i].transform.parent.gameObject.activeSelf)
+                                optionList[i].transform.parent.gameObject.SetActive(true);
 
                             optionList[i].SetWord(str[i + 1], i + 2);
                         }
                         else
-                            optionList[i].gameObject.SetActive(false);
+                            optionList[i].transform.parent.gameObject.SetActive(false);
                         //if (str[i + 1].ToCharArray().All(sacrificedChar.Contains))
                         //    ctr++;
                     }
