@@ -162,7 +162,7 @@ public class DialogueManager : MonoBehaviour {
     {
         //print("SetDialogue");
         //dialogueQueue.Clear();
-        
+
 
         data.Clear();
         dialogueCtr = 0;
@@ -229,7 +229,7 @@ public class DialogueManager : MonoBehaviour {
             DisplayNextDialogue();
             return;
         }
-            
+
 
         if (string.IsNullOrWhiteSpace(currDialogue))
         {
@@ -249,9 +249,9 @@ public class DialogueManager : MonoBehaviour {
                 //print("Dialogue option: " + optionVal);
                 optionVal = int.Parse(str[1]);
 
-                if(str[2].ToLower() == "image")
+                if (str[2].ToLower() == "image")
                     ImageKey(str[3]);
-                else if(str[2].ToLower() == "animation")
+                else if (str[2].ToLower() == "animation")
                     AnimKey(str[3]);
                 else
                 {
@@ -568,7 +568,7 @@ public class DialogueManager : MonoBehaviour {
         {
             foreach (char c in Input.inputString)
             {
-                //if (!System.Char.IsLetter(c))
+                //if (!System.Char.IsLetter(c) && c <= 127)
                 //    break;
 
                 audioSource.pitch = 1;
@@ -583,7 +583,7 @@ public class DialogueManager : MonoBehaviour {
                     else
                     if (isSacrificing)
                     {
-                        if (!System.Char.IsLetter(c))
+                        if (!System.Char.IsLetter(c) || c > 127)
                             break;
 
                         SacrificeCharCheck(letter);
@@ -607,7 +607,7 @@ public class DialogueManager : MonoBehaviour {
                         {
                             if (isOffering)
                             {
-                                if (!System.Char.IsLetter(c))
+                                if (!System.Char.IsLetter(c) || c > 127)
                                     break;
 
                                 OfferingCharCheck(letter);
@@ -616,7 +616,7 @@ public class DialogueManager : MonoBehaviour {
 
                             if (isSacrificing)
                             {
-                                if (!System.Char.IsLetter(c))
+                                if (!System.Char.IsLetter(c) || c > 127)
                                     break;
 
                                 sacrificePopupTextbox2.text = "Input an unsacrificed letter.";
@@ -630,14 +630,14 @@ public class DialogueManager : MonoBehaviour {
                         {
                             if (isSacrificing)
                             {
-                                if (!System.Char.IsLetter(c))
+                                if (!System.Char.IsLetter(c) || c > 127)
                                     break;
 
                                 b = false;
                             }
                             else if (isOffering)
                             {
-                                if (!System.Char.IsLetter(c))
+                                if (!System.Char.IsLetter(c) || c > 127)
                                     break;
 
                                 b = true;
@@ -645,7 +645,7 @@ public class DialogueManager : MonoBehaviour {
                         }
                     }
 
-                    if(isOffering || isSacrificing)
+                    if (isOffering || isSacrificing)
                     {
                         if (isOffering && !b)
                             offeringPopupTextbox2.text = "Input a sacrificed letter.";
@@ -842,7 +842,7 @@ public class DialogueManager : MonoBehaviour {
 
         foreach (var c in sacrificedChar)
             sacrificedCharTextbox.text += Char.ToUpper(c) + " ";
-            //str += Char.ToUpper(c) + " ";
+        //str += Char.ToUpper(c) + " ";
 
         if (sacrificedSortToggle.isOn)
             //str = String.Concat(str.OrderBy(c => c));
