@@ -154,6 +154,7 @@ public class DialogueManager : MonoBehaviour {
         //print("OpenDialogueFile");
         isGameOver = false;
         isInGame = true;
+        optionVal = 0;
         textFile = Resources.Load<TextAsset>("Dialogue" + Path.DirectorySeparatorChar + ((name == "") ? "dialogue" : name) + num.ToString());
         SetDialogue();
     }
